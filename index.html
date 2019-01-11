@@ -17,83 +17,100 @@
 
 <body>
 
-    <div class="table-responsive-lg">
-        <table id="competitionTable" class="table table-bordered table-hover table-striped table-responsive-stack">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Game ID</th>
-                    <th>Player 1</th>
-                    <th>Player 2</th>
-                    <th>Winner</th>
-                    <th>Score</th>
-                    <th>Muuda</th>
-                    <th>Kustuta </th>
-                </tr>
-            </thead>
+    <div class="container">
 
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+        <div class="jumbotron mb-2">
+            <h1 class="display-4 text-center">Lauatennise võistluse LIVE tulemused</h1>
+        </div>
+
+        <div class="table-responsive-lg">
+
+            <table id="competitionTable" class="table table-bordered table-hover table-striped table-responsive-stack">
+
+                <div class="nav-scroller py-1 mb-2">
+                    <nav class="nav d-flex justify-content-between">
+                        <a class="p-2 text-muted" href="#"> </a>
+                        <button onclick="show_add_game_form();" type="submit" class="btn btn-primary mr-3">Lisa mäng</button>
+
+                    </nav>
+                </div>
+
+                <thead class="thead-dark align-middle">
+                    <tr>
+                        <th class="text-center">Game ID</th>
+                        <th>Player 1</th>
+                        <th>Player 2</th>
+                        <th>Winner</th>
+                        <th class="text-center">Score</th>
+                        <th>Muuda</th>
+                        <th>Kustuta </th>
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
 
 
-    <!-- LISA MÄNG -->
-    <div class="card bg-light" id="new_game">
-        <article class="card-body mx-auto w-75" style="max-width: 400px;">
-            <h4 class="card-title mt-3 text-center">Lisa mäng</h4>
-            <br />
-            <div class="form-group input-group">
-                <input id="gameid" name="" class="form-control" placeholder="Game ID" type="text">
-            </div>
-            <div class="form-group input-group">
-                <input id="player1" name="" class="form-control" placeholder="Player 1" type="text">
-            </div>
-            <div class="form-group input-group">
-                <input id="player2" name="" class="form-control" placeholder="Player 2" type="text">
-            </div>
-            <div class="form-group input-group">
-                <input id="winner" name="" class="form-control" placeholder="Winner" type="text">
-            </div>
-            <div class="form-group input-group">
-                <input id="score" name="" class="form-control" placeholder="Score" type="text">
-            </div>
-            <div class="form-group">
-                <button onclick="add_new_item();" type="submit" class="btn btn-primary btn-block"> Salvesta
-                </button>
-            </div>
-        </article>
-    </div>
-
-    <!-- MUUDA MÄNGU -->
-    <div class="card bg-light" style="display:none" id="change_game">
-        <article class="card-body mx-auto w-75" style="max-width: 400px;">
-            <h4 class="card-title mt-3 text-center">Muuda mäng</h4>
-            <br />
-            <form>
+        <!-- LISA MÄNG -->
+        <div class="card bg-light" id="new_game">
+            <article class="card-body mx-auto w-75" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">Lisa mäng</h4>
+                <br />
                 <div class="form-group input-group">
-                    <input id="gameidChange" name="" class="form-control" placeholder="Game ID" type="text">
+                    <input id="gameid" name="" class="form-control" placeholder="Game ID" type="text">
                 </div>
                 <div class="form-group input-group">
-                    <input id="player1Change" name="" class="form-control" placeholder="Player 1" type="text">
+                    <input id="player1" name="" class="form-control" placeholder="Player 1" type="text">
                 </div>
                 <div class="form-group input-group">
-                    <input id="player2Change" name="" class="form-control" placeholder="Player 2" type="text">
+                    <input id="player2" name="" class="form-control" placeholder="Player 2" type="text">
                 </div>
                 <div class="form-group input-group">
-                    <input id="winnerChange" name="" class="form-control" placeholder="Winner" type="text">
+                    <input id="winner" name="" class="form-control" placeholder="Winner" type="text">
                 </div>
                 <div class="form-group input-group">
-                    <input id="scoreChange" name="" class="form-control" placeholder="Score" type="text">
+                    <input id="score" name="" class="form-control" placeholder="Score" type="text">
                 </div>
                 <div class="form-group">
-                    <button type="submit" onclick="change_row();" class="btn btn-primary btn-block"> Salvesta
+                    <button onclick="add_new_item();" type="submit" class="btn btn-primary btn-block align-middle">
+                        Salvesta
                     </button>
-                    <input type="hidden" id="idChange" value="">
                 </div>
-            </form>
-        </article>
-    </div>
+            </article>
+        </div>
 
+        <!-- MUUDA MÄNGU -->
+        <div class="card bg-light" style="display:none" id="change_game">
+            <article class="card-body mx-auto w-75" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">Muuda mäng</h4>
+                <br />
+                <form>
+                    <div class="form-group input-group">
+                        <input id="gameidChange" name="" class="form-control" placeholder="Game ID" type="text">
+                    </div>
+                    <div class="form-group input-group">
+                        <input id="player1Change" name="" class="form-control" placeholder="Player 1" type="text">
+                    </div>
+                    <div class="form-group input-group">
+                        <input id="player2Change" name="" class="form-control" placeholder="Player 2" type="text">
+                    </div>
+                    <div class="form-group input-group">
+                        <input id="winnerChange" name="" class="form-control" placeholder="Winner" type="text">
+                    </div>
+                    <div class="form-group input-group">
+                        <input id="scoreChange" name="" class="form-control" placeholder="Score" type="text">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" onclick="change_row();" class="btn btn-primary btn-block align-middle">
+                            Salvesta
+                        </button>
+                        <input type="hidden" id="idChange" value="">
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

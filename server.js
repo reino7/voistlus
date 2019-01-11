@@ -6,15 +6,19 @@ var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
-var port = 3012;
-
-// Andmebaasi osa
 var mongoose = require('mongoose');
 
+
+// Server variables info
+var port = 3012;
+
+
+// Mongoose connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/voistlus');
 
-var Schema = mongoose.Schema;
 
+// Defining schema for MongoDB
+var Schema = mongoose.Schema;
 var voistlusScheme = new Schema({
     gameID: {
         type: String,
@@ -33,6 +37,8 @@ var voistlusScheme = new Schema({
     }
 })
 
+
+// Defining mongoose Model
 var voistlusDB = mongoose.model('voistlusDB', voistlusScheme);
 
 
@@ -41,10 +47,11 @@ var voistlusDB = mongoose.model('voistlusDB', voistlusScheme);
 app.set('port', 3012);
 app.use(express.static('.'));
 
-// Routing
+// Routes HTTP GET requests to the specified path with the specified callback functions.
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
+
 // Starts the server.
 server.listen(port, function () {
     console.log(`Server is up and running: http://localhost:${port}`);
@@ -53,21 +60,25 @@ server.listen(port, function () {
 
 // SOCKET
 io.on('connection', function (socket) {
+
     // send games list
     socket.on('updateList', function () {
         voistlusDB.find({}, function (err, list) {
 
-            // console log err tee siia
+            // If error occours, then display it
+            if (err) {
+                console.log(err);
+            }
 
             // Updates list for new client
             // console.log(list);
             socket.emit('listUpdate', list);
-
         });
     });
 
     // Add new value to db
     socket.on('newItem', function (data) {
+
         try {
             voistlusDB.create({
                 gameID: data.gameID,
@@ -76,46 +87,72 @@ io.on('connection', function (socket) {
                 winner: data.winner,
                 score: data.score
             });
+
+            // Display message when new info added to db
             console.log('Lisasin rea baasi');
+
+            // refresh the list from db
             io.emit('refreshList');
+
         } catch (e) {
+            // If error occours, then display it
             console.log(e);
         };
     });
 
     // Delete value from db
     socket.on('deleteItem', function (data) {
+
         try {
             // console.log(data.id);
             voistlusDB.findByIdAndRemove(data.id, function (err, res) {
+
+                // If error occours, then display it
                 if (err) {
                     console.log(err);
                 }
+
+                // Display message when new info deleted from db
                 console.log('Kustutasime rea')
+
+                // refresh the list from db
                 io.emit('refreshList');
             });
+
         } catch (e) {
+            // If error occours, then display it
             console.log(e);
         };
     });
 
     // Get value from db
     socket.on('getChangeRow', function (data) {
+
         try {
             // console.log(data.id);
             voistlusDB.findById(data.id, function (err, res) {
+
+                // If error occours, then display it
                 if (err) {
                     console.log(err);
                 }
+
+                // Display message
                 console.log('Võtame rea info DB-st')
+
+                // Clear the form
                 socket.emit('updateForm', res);
             });
+
         } catch (e) {
+            // If error occours, then display it
             console.log(e);
         };
+
     });
 
     socket.on('updateRow', function (data) {
+
         try {
             // console.log(data.id);
             voistlusDB.findByIdAndUpdate(data.id, {
@@ -125,17 +162,23 @@ io.on('connection', function (socket) {
                 winner: data.winner,
                 score: data.score
             }, function (err, res) {
+                // If error occours, then display it
                 if (err) {
                     console.log(err);
                 }
+
+                // Display message
                 console.log('Uuendasime rida DB-st')
+
+                // get info from db and update it
                 socket.emit('updateForm', res);
             });
+
         } catch (e) {
+            // If error occours, then display it
             console.log(e);
         };
 
     });
-
 
 });

@@ -1,17 +1,17 @@
 # Voistlus
 Lauatennise võistluse LIVE tulemused.
 
-Tööks vajalik:
+**Tööks vajalik:**
 > Node.JS --> https://nodejs.org/ <br />
 > mongoDB --> https://www.mongodb.com/
 
-Käivitamiseks:
-> npm install <br />
-> node server.js
+**Käivitamiseks:**
+> ```npm install```<br />
+> ```node server.js```
 
-Väljundit vaata:
+**Väljundit vaata:**
 > http://localhost:3012/index.html
 
-Sulgemiseks:
+**Sulgemiseks:**
 > CTRL + C
 

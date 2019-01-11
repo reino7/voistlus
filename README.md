@@ -7,12 +7,11 @@ Tööks vajalik:
 
 Käivitamiseks:
 > npm install
-
-Käivitamiseks:
 > node server.js
+
+Väljundit vaata:
+> http://localhost:3012/index.html
 
 Sulgemiseks:
 > CTRL + C
 
-Väljundit vaata:
-> http://localhost:3012/index.html

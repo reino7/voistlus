@@ -6,10 +6,7 @@ Tööks vajalik:
 > mongoDB --> https://www.mongodb.com/
 
 Käivitamiseks:
-> npm init
-
-Lisade paigaldus:
-> npm install --save express socket.io mongoose
+> npm install
 
 Käivitamiseks:
 > node server.js

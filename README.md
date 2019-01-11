@@ -1,4 +1,9 @@
 # Voistlus
+Lauatennise võistluse LIVE tulemused.
+
+Tööks vajalik:
+> Node.JS --> https://nodejs.org/
+> mongoDB --> https://www.mongodb.com/
 
 Käivitamiseks:
 > npm init

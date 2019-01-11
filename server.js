@@ -6,6 +6,7 @@ var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
+var port = 3012;
 
 // Andmebaasi osa
 var mongoose = require('mongoose');
@@ -45,8 +46,8 @@ app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname, 'index.html'));
 });
 // Starts the server.
-server.listen(3012, function () {
-    console.log('Starting server on port 3012');
+server.listen(port, function () {
+    console.log(`Server is up and running: http://localhost:${port}`);
 });
 
 
@@ -59,12 +60,13 @@ io.on('connection', function (socket) {
             // console log err tee siia
 
             // Updates list for new client
-            console.log(list);
+            // console.log(list);
             socket.emit('listUpdate', list);
 
         });
     });
 
+    // Add new value to db
     socket.on('newItem', function (data) {
         try {
             voistlusDB.create({
@@ -74,22 +76,66 @@ io.on('connection', function (socket) {
                 winner: data.winner,
                 score: data.score
             });
-            console.log('Lisasin rea baasi')
+            console.log('Lisasin rea baasi');
+            io.emit('refreshList');
         } catch (e) {
             console.log(e);
         };
     });
 
+    // Delete value from db
     socket.on('deleteItem', function (data) {
         try {
-            console.log(data);
-            voistlusDB.deleteOne({
-                _id: data.id
+            // console.log(data.id);
+            voistlusDB.findByIdAndRemove(data.id, function (err, res) {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Kustutasime rea')
+                io.emit('refreshList');
             });
-            console.log('Kustutasime rea')
         } catch (e) {
             console.log(e);
         };
     });
+
+    // Get value from db
+    socket.on('getChangeRow', function (data) {
+        try {
+            // console.log(data.id);
+            voistlusDB.findById(data.id, function (err, res) {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Võtame rea info DB-st')
+                socket.emit('updateForm', res);
+            });
+        } catch (e) {
+            console.log(e);
+        };
+    });
+
+    socket.on('updateRow', function (data) {
+        try {
+            // console.log(data.id);
+            voistlusDB.findByIdAndUpdate(data.id, {
+                gameID: data.gameID,
+                player1: data.player1,
+                player2: data.player2,
+                winner: data.winner,
+                score: data.score
+            }, function (err, res) {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Uuendasime rida DB-st')
+                socket.emit('updateForm', res);
+            });
+        } catch (e) {
+            console.log(e);
+        };
+
+    });
+
 
 });

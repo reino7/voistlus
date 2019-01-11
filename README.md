@@ -2,11 +2,11 @@
 Lauatennise võistluse LIVE tulemused.
 
 Tööks vajalik:
-> Node.JS --> https://nodejs.org/
+> Node.JS --> https://nodejs.org/ __
 > mongoDB --> https://www.mongodb.com/
 
 Käivitamiseks:
-> npm install
+> npm install __
 > node server.js
 
 Väljundit vaata:

@@ -85,6 +85,8 @@ function add_new_item() {
     document.getElementById("player2").value = "";
     document.getElementById("winner").value = "";
     document.getElementById("score").value = "";
+
+    hide_add_game_form()
 };
 
 
@@ -107,6 +109,17 @@ function change_row() {
     document.getElementById('new_game').style.display = "block";
 
 };
+
+function show_add_game_form() {
+    // Display id="new_game"
+    document.getElementById('new_game').style.display = "block";
+};
+
+function hide_add_game_form() {
+    // Hide id="new_game"
+    document.getElementById('new_game').style.display = "none";
+};
+
 
 // Delete row
 function deleteRow(itemID) {

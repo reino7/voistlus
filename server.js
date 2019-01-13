@@ -172,6 +172,9 @@ io.on('connection', function (socket) {
 
                 // get info from db and update it
                 socket.emit('updateForm', res);
+                // refresh the list from db
+                io.emit('refreshList');
+
             });
 
         } catch (e) {
